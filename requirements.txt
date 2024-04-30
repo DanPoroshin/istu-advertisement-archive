@@ -1,0 +1,7 @@
+alembic
+fastapi
+asyncpg
+uvicorn
+python-multipart
+python-dotenv
+greenlet
