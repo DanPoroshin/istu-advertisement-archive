@@ -4,21 +4,23 @@ from pydantic import BaseModel
 
 
 class BaseTextDTO(BaseModel):
+    id: int
     title: str
-    text: str
-    kirillic_text: Optional[str]
     image: str
-    comment: str
 
     class Config:
         orm_mode = True
 
+
 class TextUpdateDTO(BaseTextDTO):
-    id: int
     title: Optional[str]
     text: Optional[str]
     image: Optional[str]
+    kirillic_text: Optional[str]
+
 
 class TextDTO(BaseTextDTO):
-    id: int
+    text: str
+    kirillic_text: Optional[str]
+    comment: str
     created_at: datetime
