@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center h-screen bg-transparent px-10">
+    <!-- Large window on the left -->
+    <div class="w-3/5 bg-white shadow-lg rounded-3xl p-8 mr-8">
+        <!-- Content of the large window -->
+        <h2 class="text-3xl font-bold mb-6">Добро пожаловать в нашу систему управления текстами</h2>
+        <p class="text-gray-700">Добро пожаловать в систему, которая помогает управлять, искать и организовывать тексты.
+            Здесь вы найдете удобные инструменты для работы с текстовыми данными, поддержку различных форматов и многое
+            другое.</p>
+    </div>
+
+    <!-- Two smaller windows on the right -->
+    <div class="w-2/5 flex flex-col space-y-4">
+        <div class="flex-1 bg-white shadow-lg rounded-3xl p-8">
+            <!-- Content of the first small window -->
+            <h3 class="text-2xl font-bold mb-4">Добавить текст</h3>
+            <p class="text-gray-700">Простой интерфейс для добавления новых текстовых записей. Организуйте ваши данные и
+                облегчите доступ к нужной информации в любое время.</p>
+            <a href="add.html"
+                class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Перейти</a>
+        </div>
+
+        <div class="flex-1 bg-white shadow-lg rounded-3xl p-8">
+            <!-- Content of the second small window -->
+            <h3 class="text-2xl font-bold mb-4">Поиск текста</h3>
+            <p class="text-gray-700">Используйте мощные инструменты поиска для нахождения нужных текстов по ключевым
+                словам или леммам. Ускорьте процесс нахождения необходимой информации.</p>
+            <a href="search_by_lemma.html"
+                class="mt-4 inline-block bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Перейти</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -18,7 +18,7 @@ router = APIRouter(
 )
 
 
-@router.post('/add', status_code=200)
+@router.post('/add', status_code=201)
 async def add_text(title_: str = Form(...),
                    text_: str = Form(...),
                    kirillic_text_: str = Form(None),
@@ -54,7 +54,7 @@ async def add_text(title_: str = Form(...),
     finally:
         await session.commit()
 
-        return {'response': HTTPException(status_code=status.HTTP_200_OK), 'lemmatized_text': lemmatized_text}
+        return {'response': HTTPException(status_code=status.HTTP_200_OK)}
 
 
 @router.get('/all', response_model=List[BaseTextDTO])

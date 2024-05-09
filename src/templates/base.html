@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}Text Management System{% endblock %}</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@300&family=Poppins:wght@300;400&family=Roboto:wght@300&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-[Roboto] text-xl bg-[#EBF2FA] h-screen">
+    <header class="bg-blue-500 text-white py-4">
+        <nav class="w-full text-center">
+            <ul class="inline-flex gap-8 justify-center">
+                <li><a class="hover:text-gray-300 text-xl" href="/all_texts">View All Texts</a></li>
+                <li><a class="hover:text-gray-300 text-xl" href="/add">Add New Text</a></li>
+                <li><a class="hover:text-gray-300 text-xl" href="/search_by_lemma">Search by Lemma</a></li>
+                <li><a class="hover:text-gray-300 text-xl" href="/search_text">Search in Text Fields</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container mx-auto p-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

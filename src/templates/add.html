@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Text{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10">
+    <h1 class="text-3xl font-bold mb-4">Add New Text</h1>
+    <form action="/text/add" method="post" enctype="multipart/form-data">
+        <div class="mb-4">
+            <label for="title" class="block text-sm font-bold mb-2">Title:</label>
+            <input type="text" id="title" name="title_"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required>
+        </div>
+        <div class="mb-4">
+            <label for="text" class="block text-sm font-bold mb-2">Text:</label>
+            <textarea id="text" name="text_"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="kirillic_text" class="block text-sm font-bold mb-2">Kirillic Text (Optional):</label>
+            <textarea id="kirillic_text" name="kirillic_text_"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="comment" class="block text-sm font-bold mb-2">Comment:</label>
+            <textarea id="comment" name="comment_"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-bold mb-2">Image:</label>
+            <input type="file" id="image" name="image_"
+                class="shadow appearance-none border rounded py-2 px-3 text-grey-darker" required>
+        </div>
+        <div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
