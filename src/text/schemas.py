@@ -9,7 +9,7 @@ class BaseTextDTO(BaseModel):
     image: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class TextUpdateDTO(BaseTextDTO):

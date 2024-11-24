@@ -1,41 +1,61 @@
 {% extends "base.html" %}
 
-{% block title %}Add New Text{% endblock %}
+{% block title %}Добавить новый текст{% endblock %}
 
 {% block content %}
 <div class="container mx-auto mt-10">
-    <h1 class="text-3xl font-bold mb-4">Add New Text</h1>
+    <h1 class="text-3xl font-bold mb-4">Добавить новый текст</h1>
     <form action="/text/add" method="post" enctype="multipart/form-data">
         <div class="mb-4">
-            <label for="title" class="block text-sm font-bold mb-2">Title:</label>
+            <label for="title" class="block text-sm font-bold mb-2">Название:</label>
             <input type="text" id="title" name="title_"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required>
         </div>
         <div class="mb-4">
-            <label for="text" class="block text-sm font-bold mb-2">Text:</label>
+            <label for="text" class="block text-sm font-bold mb-2">Дореволюционный текст:</label>
             <textarea id="text" name="text_"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required></textarea>
         </div>
         <div class="mb-4">
-            <label for="kirillic_text" class="block text-sm font-bold mb-2">Kirillic Text (Optional):</label>
+            <button type="button" onclick="addSymbol('ѵ')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ѵ</button>
+            <button type="button" onclick="addSymbol('ѳ')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ѳ</button>
+            <button type="button" onclick="addSymbol('ѣ')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ѣ</button>
+            <button type="button" onclick="addSymbol('і')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">і</button>
+        </div>
+        <div class="mb-4">
+            <label for="kirillic_text" class="block text-sm font-bold mb-2">Современная кириллица (Опционально):</label>
             <textarea id="kirillic_text" name="kirillic_text_"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"></textarea>
         </div>
         <div class="mb-4">
-            <label for="comment" class="block text-sm font-bold mb-2">Comment:</label>
+            <label for="comment" class="block text-sm font-bold mb-2">Комментарий:</label>
             <textarea id="comment" name="comment_"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" required></textarea>
         </div>
         <div class="mb-4">
-            <label for="image" class="block text-sm font-bold mb-2">Image:</label>
+            <label for="image" class="block text-sm font-bold mb-2">Изображение:</label>
             <input type="file" id="image" name="image_"
                 class="shadow appearance-none border rounded py-2 px-3 text-grey-darker" required>
         </div>
+
         <div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Submit
+                Принять
             </button>
         </div>
     </form>
 </div>
+
+<script>
+    function addSymbol(symbol) {
+        const textarea = document.getElementById('text');
+        const startPosition = textarea.selectionStart;
+        const endPosition = textarea.selectionEnd;
+        const textBefore = textarea.value.substring(0, startPosition);
+        const textAfter = textarea.value.substring(endPosition, textarea.value.length);
+        textarea.value = textBefore + symbol + textAfter;
+        textarea.focus();
+        textarea.setSelectionRange(startPosition + 1, startPosition + 1);
+    }
+</script>
 {% endblock %}

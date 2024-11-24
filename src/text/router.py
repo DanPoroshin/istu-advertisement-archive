@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, delete, insert, func, or_
 from typing import List
 from src.db import get_async_session
-from src.lemmatizer.main import lemmatize
+from src.lingua.main import lemmatize
 
 router = APIRouter(
     prefix='/text',
@@ -36,13 +36,13 @@ async def add_text(title_: str = Form(...),
         with (images_dir / filename).open('wb') as buffer:
             shutil.copyfileobj(image_.file, buffer)
 
-        lemmatized_text = await lemmatize(text_)
+        lemmatized_text = await lemmatize(kirillic_text_)
         text_model = Text(
             title=title_,
-            text=text_,
-            kirillic_text=kirillic_text_,
+            text=text_.lower(),
+            kirillic_text=kirillic_text_.lower(),
             lemmatized_text=lemmatized_text,
-            image=str(images_dir / filename),
+            image=filename,
             comment=comment_,
         )
         session.add(text_model)

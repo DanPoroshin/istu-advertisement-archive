@@ -5,6 +5,8 @@ from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.text.models import Text
 from src.db import get_async_session
+from src.lingua.main import concordance
+import asyncio
 
 router = APIRouter(
     tags=['Pages'],
@@ -13,7 +15,7 @@ router = APIRouter(
 templates = Jinja2Templates(directory='src/templates')
 
 
-@router.get('/home', response_class=HTMLResponse)
+@router.get('/', response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse('index.html', {'request': request})
 
@@ -57,10 +59,26 @@ async def add(request: Request):
 @router.get('/search_text', response_class=HTMLResponse)
 async def search_in_text_field(request: Request, search_query: str = Query(None, description="Search query string"), session: AsyncSession = Depends(get_async_session)):
     texts = []
+    concordances = []
     if search_query:
         search_pattern = f'%{search_query}%'
+        target_word = search_query.split()[0]
         query = select(Text).where(Text.text.ilike(search_pattern))
         results = await session.execute(query)
         texts = results.scalars().all()
 
-    return templates.TemplateResponse("search_by_text.html", {"request": request, "texts": texts, "search_query": search_query})
+        # Create concordance coroutines for each text
+        concordance_coroutines = [concordance(text.text, target_word) for text in texts]
+        # Use asyncio.gather to run the coroutines concurrently
+        concordances = await asyncio.gather(*concordance_coroutines)
+
+        # Zip texts and concordances together before passing to the template
+        text_concordance_pairs = list(zip(texts, concordances))
+    else:
+        text_concordance_pairs = []
+
+    return templates.TemplateResponse("search_by_text.html", {
+        "request": request,
+        "text_concordance_pairs": text_concordance_pairs,
+        "search_query": search_query
+    })
