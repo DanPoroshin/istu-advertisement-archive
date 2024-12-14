@@ -3,6 +3,7 @@ from pathlib import Path
 import shutil
 import uuid
 from fastapi import APIRouter, Depends, status, HTTPException, UploadFile, File, Form, Query
+from starlette.responses import RedirectResponse
 
 from src.text.schemas import BaseTextDTO, TextDTO, TextUpdateDTO
 from src.text.models import Text
@@ -54,7 +55,7 @@ async def add_text(title_: str = Form(...),
     finally:
         await session.commit()
 
-        return {'response': HTTPException(status_code=status.HTTP_200_OK)}
+    return RedirectResponse(url="/all_texts", status_code=status.HTTP_302_FOUND)
 
 
 @router.get('/all', response_model=List[BaseTextDTO])

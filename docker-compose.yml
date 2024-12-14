@@ -1,0 +1,16 @@
+version: "2.3"
+
+services:
+  pf-postgres:
+    restart: always
+    container_name: pf-postgres
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgresql/schemas:/docker-entrypoint-initdb.d
+      - /var/services/pf/db/pgdata:/var/lib/postgresql/pgdata
+    ports:
+      - 5432:5432
